@@ -5,27 +5,52 @@
  */
 
 import React, { Component } from 'react';
+import { observer } from 'mobx-react/native';
+
 import {
   AppRegistry,
   StyleSheet,
   Text,
   View
 } from 'react-native';
+import liststore from './models/list';
+
+
+liststore.add("This is cool")
+
+setTimeout( () => liststore.add("This is very cool") , 2500 )
+
+@observer
+class TodoList extends Component {
+  render() {
+    let l = this.props.list;
+    return (
+
+      <View style={styles.container}>
+        {
+          l.list.map( (t) => (
+          <Text style={styles.welcome} key={t.key}>
+            {t.title}
+          </Text>)
+          )
+        }
+        <Text style={styles.welcome}>
+          The size is {l.size}
+        </Text>
+      </View>
+    );
+  }
+}
+
 
 export default class rnx extends Component {
   render() {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
-          Welcome to React Native!
+          Welcome again!
         </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Double tap R on your keyboard to reload,{'\n'}
-          Shake or press menu button for dev menu
-        </Text>
+        <TodoList list={liststore} />
       </View>
     );
   }
