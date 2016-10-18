@@ -15,6 +15,8 @@ import {
 } from 'react-native';
 import liststore from './models/list';
 
+import Hello from './components/hello';
+
 
 liststore.add("This is cool")
 
@@ -48,8 +50,10 @@ export default class rnx extends Component {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
-          Welcome again!
+          Welcome again
+          <Hello />
         </Text>
+
         <TodoList list={liststore} />
       </View>
     );
