@@ -9,9 +9,9 @@ import { render } from 'react-dom';
 
 import { observer } from 'mobx-react';
 
-import liststore from './models/list';
+import liststore from 'models/list';
 
-import Hello from './components/hello';
+import Hello from 'components/hello';
 
 
 liststore.add("This is cool")

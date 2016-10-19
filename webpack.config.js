@@ -14,24 +14,30 @@ module.exports = {
   plugins: [
     new webpack.NoErrorsPlugin()
   ],
+  resolve: {
+    extentions: ['', '.js', '.jsx'],
+    root: [
+      path.resolve('./')
+    ]
+  },
   module: {
     loaders: [
-    // js
-    {
-      test: /\.js$/,
-      loader: 'babel',
-      query: {
-        cacheDirectory: true,
-        "presets": [
-          "react",
-          "es2015",
-          "stage-1"
-        ],
-        "plugins": ["transform-decorators-legacy"]
+      // js
+      {
+        test: /\.js$/,
+        loader: 'babel',
+        query: {
+          cacheDirectory: true,
+          "presets": [
+            "react",
+            "es2015",
+            "stage-1"
+          ],
+          "plugins": ["transform-decorators-legacy"]
+        },
+        exclude: /node_modules/,
+        include: path.join(__dirname)
       },
-      exclude: /node_modules/,
-      include: path.join(__dirname)
-    },
     ]
   }
 };
