@@ -1,82 +1,34 @@
 /**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
+* Sample React Native App
+* https://github.com/facebook/react-native
+* @flow
+*/
 
 import React, { Component } from 'react';
-import { observer } from 'mobx-react/native';
-
 import {
-  AppRegistry,
-  StyleSheet,
-  Text,
-  View
+  AppRegistry
 } from 'react-native';
-import liststore from './models/list';
 
-import Hello from './components/hello';
+import {Router, Scene} from 'react-native-mobx';
 
-
-liststore.add("This is cool")
-
-setTimeout( () => liststore.add("This is very cool") , 2500 )
-
-@observer
-class TodoList extends Component {
-  render() {
-    let l = this.props.list;
-    return (
-
-      <View style={styles.container}>
-        {
-          l.list.map( (t) => (
-          <Text style={styles.welcome} key={t.key}>
-            {t.title}
-          </Text>)
-          )
-        }
-        <Text style={styles.welcome}>
-          The size is {l.size}
-        </Text>
-      </View>
-    );
-  }
-}
-
+import App from './components/App';
+import Login from './components/login';
 
 export default class rnx extends Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome again
-          <Hello />
-        </Text>
-
-        <TodoList list={liststore} />
-      </View>
+          <Router>
+            <Scene key="root">
+              <Scene key="login" component={Login} title="App2" hideNavBar={true} initial={true} />
+              <Scene key="app" component={App} title="App" hideNavBar={false}>
+                <Scene key="main" tabs={true} >
+                  <Scene key="app2" component={Login} title="App2"/>
+                </Scene>
+              </Scene>
+            </Scene>
+          </Router>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
 
 AppRegistry.registerComponent('rnx', () => rnx);

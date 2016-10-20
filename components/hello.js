@@ -3,7 +3,7 @@ import React, { PropTypes } from 'react';
 const Hello = React.createClass({
   render () {
     return (
-      <div>Hello webbizen</div>
+      <div>Hello Azad</div>
     )
   }
 })
