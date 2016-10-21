@@ -4,32 +4,16 @@ import {
   NativeModules,
   StatusBar,
   View,
-  Text,
-  Drawer
+  Text
 } from 'react-native';
 
-import {
-  COLOR,
-  ThemeProvider
-} from 'react-native-material-ui';
 import { Actions, DefaultRenderer } from 'react-native-router-flux';
+import Hello from '../hello';
 
-import Realm from 'realm';
-const UIManager = NativeModules.UIManager;
 
-const uiTheme = {
-  palette: {
-    primaryColor: COLOR.green500,
-  },
-}
-
+import Drawer from 'react-native-drawer';
 class App extends Component {
 
-  componentWillMount() {
-    if (UIManager.setLayoutAnimationEnabledExperimental) {
-      UIManager.setLayoutAnimationEnabledExperimental(true);
-    }
-  }
   render() {
     const state = this.props.navigationState;
     const children = state.children;
@@ -40,14 +24,15 @@ class App extends Component {
                 onOpen={()=>Actions.refresh({key:state.key, open: true})}
                 onClose={()=>Actions.refresh({key:state.key, open: false})}
                 type="displace"
-                content={<Text>Hiee</Text>}
+                content={<Hello />}
                 tapToClose={true}
                 openDrawerOffset={0.2}
                 panCloseMask={0.2}
-                negotiatePan={true}>
-                <ThemeProvider uiTheme={uiTheme}>
-                    <Text>Hiee</Text>
-                </ThemeProvider>
+                negotiatePan={true}
+                tweenHandler={(ratio) => ({
+                 main: { opacity:Math.max(0.54,1-ratio) }
+            })}>
+                <DefaultRenderer navigationState={children[0]} onNavigate={this.props.onNavigate} />
             </Drawer>
     );
   }

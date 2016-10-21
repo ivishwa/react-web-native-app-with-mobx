@@ -41,3 +41,5 @@ android/app/libs
 android/keystores/debug.keystore
 android/gradle_deps/
 android/gradle_deps/caches/
+.vscode/
+tsconfig.json
